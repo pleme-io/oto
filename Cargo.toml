@@ -1,0 +1,26 @@
+[package]
+name = "oto"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.89.0"
+description = "Oto (音) — audio framework: device management, codec support, playback, voice streaming"
+homepage = "https://github.com/pleme-io/oto"
+repository = "https://github.com/pleme-io/oto"
+readme = "README.md"
+license = "MIT"
+categories = ["multimedia::audio"]
+keywords = ["audio", "playback", "voice", "codec", "streaming"]
+
+[lints.clippy]
+pedantic = { level = "warn", priority = -1 }
+missing_errors_doc = "allow"
+missing_panics_doc = "allow"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+tracing = "0.1"
+thiserror = "2"
+tokio = { version = "1", features = ["sync"] }
+
+[dev-dependencies]
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "test-util"] }
