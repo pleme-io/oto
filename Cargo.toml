@@ -6,6 +6,7 @@ rust-version = "1.89.0"
 description = "Oto (音) — audio framework: device management, codec support, playback, voice streaming"
 homepage = "https://github.com/pleme-io/oto"
 repository = "https://github.com/pleme-io/oto"
+documentation = "https://docs.rs/oto"
 readme = "README.md"
 license = "MIT"
 categories = ["multimedia::audio"]
