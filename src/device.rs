@@ -145,4 +145,36 @@ mod tests {
         let default = provider.default_output_device().unwrap();
         assert_eq!(default.id, "a");
     }
+
+    #[test]
+    fn audio_device_serde_roundtrip() {
+        let dev = AudioDevice::new("usb-2".into(), "USB DAC Pro".into(), false, 192_000, 8);
+        let json = serde_json::to_string(&dev).expect("serialize");
+        let back: AudioDevice = serde_json::from_str(&json).expect("deserialize");
+        assert_eq!(back.id, "usb-2");
+        assert_eq!(back.name, "USB DAC Pro");
+        assert!(!back.is_default);
+        assert_eq!(back.sample_rate, 192_000);
+        assert_eq!(back.channels, 8);
+    }
+
+    #[test]
+    fn mock_provider_no_default_among_non_default_devices() {
+        let mut provider = MockDeviceProvider::new();
+        provider.add_device(AudioDevice::new("a".into(), "A".into(), false, 44100, 2));
+        provider.add_device(AudioDevice::new("b".into(), "B".into(), false, 48000, 2));
+
+        let result = provider.default_output_device();
+        assert!(result.is_err());
+        let err_msg = result.unwrap_err().to_string();
+        assert!(err_msg.contains("no default device"));
+    }
+
+    #[test]
+    fn audio_device_provider_trait_object_safety() {
+        // Verify AudioDeviceProvider can be used as a trait object
+        let provider: Box<dyn AudioDeviceProvider> = Box::new(MockDeviceProvider::with_default_device());
+        let devices = provider.list_output_devices().unwrap();
+        assert_eq!(devices.len(), 1);
+    }
 }

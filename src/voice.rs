@@ -193,4 +193,39 @@ mod tests {
         assert_eq!(a.state(), b.state());
         assert_eq!(a.is_muted(), b.is_muted());
     }
+
+    #[test]
+    fn transition_listening_to_transmitting() {
+        let mut vs = VoiceStream::new();
+        vs.start_listening();
+        assert_eq!(vs.state(), VoiceState::Listening);
+        // Direct transition from listening to transmitting should work
+        vs.start_transmitting();
+        assert_eq!(vs.state(), VoiceState::Transmitting);
+    }
+
+    #[test]
+    fn transition_transmitting_to_listening() {
+        let mut vs = VoiceStream::new();
+        vs.start_transmitting();
+        // Direct transition from transmitting to listening should work
+        vs.start_listening();
+        assert_eq!(vs.state(), VoiceState::Listening);
+    }
+
+    #[test]
+    fn mute_persists_across_state_changes() {
+        let mut vs = VoiceStream::new();
+        vs.mute();
+        assert!(vs.is_muted());
+
+        vs.start_listening();
+        assert!(vs.is_muted(), "mute should persist through state changes");
+
+        vs.stop_listening();
+        assert!(vs.is_muted(), "mute should persist after stopping");
+
+        vs.start_transmitting();
+        assert!(vs.is_muted(), "mute should persist through transmitting");
+    }
 }

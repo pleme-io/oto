@@ -163,4 +163,91 @@ mod tests {
         assert!((info.duration_secs - 245.5).abs() < f64::EPSILON);
         assert_eq!(info.bit_depth, Some(24));
     }
+
+    #[test]
+    fn codec_serde_roundtrip() {
+        let codecs = [
+            AudioCodec::Flac,
+            AudioCodec::Alac,
+            AudioCodec::Wav,
+            AudioCodec::Mp3,
+            AudioCodec::Aac,
+            AudioCodec::Ogg,
+            AudioCodec::Unknown,
+        ];
+        for codec in &codecs {
+            let json = serde_json::to_string(codec).expect("serialize");
+            let back: AudioCodec = serde_json::from_str(&json).expect("deserialize");
+            assert_eq!(*codec, back, "roundtrip failed for {codec}");
+        }
+    }
+
+    #[test]
+    fn audio_info_serde_roundtrip() {
+        let info = AudioInfo {
+            codec: AudioCodec::Ogg,
+            sample_rate: 96000,
+            channels: 6,
+            duration_secs: 3723.456,
+            bit_depth: None,
+        };
+        let json = serde_json::to_string(&info).expect("serialize");
+        let back: AudioInfo = serde_json::from_str(&json).expect("deserialize");
+        assert_eq!(back.codec, AudioCodec::Ogg);
+        assert_eq!(back.sample_rate, 96000);
+        assert_eq!(back.channels, 6);
+        assert!((back.duration_secs - 3723.456).abs() < f64::EPSILON);
+        assert_eq!(back.bit_depth, None);
+    }
+
+    #[test]
+    fn codec_from_extension_case_insensitive() {
+        // Extensions should be case-insensitive
+        assert_eq!(AudioCodec::from_extension("MP3"), AudioCodec::Mp3);
+        assert_eq!(AudioCodec::from_extension("Ogg"), AudioCodec::Ogg);
+        assert_eq!(AudioCodec::from_extension("WAV"), AudioCodec::Wav);
+        assert_eq!(AudioCodec::from_extension("AaC"), AudioCodec::Aac);
+        assert_eq!(AudioCodec::from_extension("M4A"), AudioCodec::Alac);
+    }
+
+    #[test]
+    fn codec_from_mime_alac() {
+        assert_eq!(AudioCodec::from_mime("audio/mp4"), AudioCodec::Alac);
+        assert_eq!(AudioCodec::from_mime("audio/x-m4a"), AudioCodec::Alac);
+    }
+
+    #[test]
+    fn codec_from_mime_x_aac() {
+        assert_eq!(AudioCodec::from_mime("audio/x-aac"), AudioCodec::Aac);
+    }
+
+    #[test]
+    fn codec_display_all_variants() {
+        assert_eq!(AudioCodec::Alac.to_string(), "ALAC");
+        assert_eq!(AudioCodec::Wav.to_string(), "WAV");
+        assert_eq!(AudioCodec::Mp3.to_string(), "MP3");
+        assert_eq!(AudioCodec::Aac.to_string(), "AAC");
+        assert_eq!(AudioCodec::Ogg.to_string(), "OGG");
+    }
+
+    #[test]
+    fn audio_info_bit_depth_some() {
+        let info = AudioInfo {
+            codec: AudioCodec::Wav,
+            sample_rate: 44100,
+            channels: 1,
+            duration_secs: 0.0,
+            bit_depth: Some(16),
+        };
+        assert_eq!(info.bit_depth, Some(16));
+    }
+
+    #[test]
+    fn codec_clone_and_copy() {
+        let codec = AudioCodec::Flac;
+        let cloned = codec.clone();
+        let copied = codec; // Copy
+        assert_eq!(codec, cloned);
+        assert_eq!(codec, copied);
+    }
 }

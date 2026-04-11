@@ -259,4 +259,51 @@ mod tests {
         assert_eq!(a.state(), b.state());
         assert!((a.position() - b.position()).abs() < f64::EPSILON);
     }
+
+    #[test]
+    fn seek_without_track_clamps_negative() {
+        // Without a track loaded (no duration), negative should clamp to 0
+        let mut player = Player::new();
+        player.seek(-100.0);
+        assert!(player.position().abs() < f64::EPSILON);
+    }
+
+    #[test]
+    fn seek_without_track_allows_positive() {
+        // Without a track loaded, positive seeks are unclamped (no upper bound)
+        let mut player = Player::new();
+        player.seek(999.0);
+        assert!((player.position() - 999.0).abs() < f64::EPSILON);
+    }
+
+    #[test]
+    fn set_track_replaces_previous() {
+        let mut player = Player::new();
+        player.set_track("first.mp3".into(), 100.0);
+        player.play();
+        player.seek(50.0);
+
+        player.set_track("second.flac".into(), 300.0);
+        assert_eq!(player.current_track(), Some("second.flac"));
+        assert!((player.duration().unwrap() - 300.0).abs() < f64::EPSILON);
+        assert!(player.position().abs() < f64::EPSILON);
+        assert_eq!(player.state(), PlaybackState::Stopped);
+    }
+
+    #[test]
+    fn toggle_twice_from_stopped_returns_to_paused() {
+        let mut player = Player::new();
+        player.toggle(); // Stopped -> Playing
+        player.toggle(); // Playing -> Paused
+        assert_eq!(player.state(), PlaybackState::Paused);
+    }
+
+    #[test]
+    fn progress_clamped_at_boundaries() {
+        let mut player = Player::new();
+        player.set_track("t.wav".into(), 100.0);
+        // Seek beyond duration is clamped, so progress should be 1.0
+        player.seek(200.0);
+        assert!((player.progress() - 1.0).abs() < f64::EPSILON);
+    }
 }
