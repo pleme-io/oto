@@ -24,6 +24,10 @@
       "proc_macro": false,
       "build_script": null,
       "binaries": [],
+      "lib_target": {
+        "name": "itoa",
+        "path": "src/lib.rs"
+      },
       "dependencies": [],
       "runtime_dependencies": [],
       "build_dependencies": [],
@@ -46,6 +50,10 @@
       "proc_macro": false,
       "build_script": null,
       "binaries": [],
+      "lib_target": {
+        "name": "memchr",
+        "path": "src/lib.rs"
+      },
       "dependencies": [],
       "runtime_dependencies": [],
       "build_dependencies": [],
@@ -70,6 +78,10 @@
       "proc_macro": false,
       "build_script": null,
       "binaries": [],
+      "lib_target": {
+        "name": "once_cell",
+        "path": "src/lib.rs"
+      },
       "dependencies": [],
       "runtime_dependencies": [],
       "build_dependencies": [],
@@ -87,6 +99,10 @@
       "proc_macro": false,
       "build_script": null,
       "binaries": [],
+      "lib_target": {
+        "name": "oto",
+        "path": "src/lib.rs"
+      },
       "dependencies": [
         {
           "name": "serde",
@@ -188,6 +204,10 @@
       "proc_macro": false,
       "build_script": null,
       "binaries": [],
+      "lib_target": {
+        "name": "pin_project_lite",
+        "path": "src/lib.rs"
+      },
       "dependencies": [],
       "runtime_dependencies": [],
       "build_dependencies": [],
@@ -210,6 +230,10 @@
       "proc_macro": false,
       "build_script": "build.rs",
       "binaries": [],
+      "lib_target": {
+        "name": "proc_macro2",
+        "path": "src/lib.rs"
+      },
       "dependencies": [
         {
           "name": "unicode_ident",
@@ -259,6 +283,10 @@
       "proc_macro": false,
       "build_script": "build.rs",
       "binaries": [],
+      "lib_target": {
+        "name": "quote",
+        "path": "src/lib.rs"
+      },
       "dependencies": [
         {
           "name": "proc_macro2",
@@ -310,6 +338,10 @@
       "proc_macro": false,
       "build_script": "build.rs",
       "binaries": [],
+      "lib_target": {
+        "name": "serde",
+        "path": "src/lib.rs"
+      },
       "dependencies": [
         {
           "name": "serde_core",
@@ -374,6 +406,10 @@
       "proc_macro": false,
       "build_script": "build.rs",
       "binaries": [],
+      "lib_target": {
+        "name": "serde_core",
+        "path": "src/lib.rs"
+      },
       "dependencies": [],
       "runtime_dependencies": [],
       "build_dependencies": [],
@@ -395,6 +431,10 @@
       "proc_macro": true,
       "build_script": null,
       "binaries": [],
+      "lib_target": {
+        "name": "serde_derive",
+        "path": "src/lib.rs"
+      },
       "dependencies": [
         {
           "name": "proc_macro2",
@@ -496,6 +536,10 @@
       "proc_macro": false,
       "build_script": "build.rs",
       "binaries": [],
+      "lib_target": {
+        "name": "serde_json",
+        "path": "src/lib.rs"
+      },
       "dependencies": [
         {
           "name": "itoa",
@@ -599,6 +643,10 @@
       "proc_macro": false,
       "build_script": null,
       "binaries": [],
+      "lib_target": {
+        "name": "syn",
+        "path": "src/lib.rs"
+      },
       "dependencies": [
         {
           "name": "proc_macro2",
@@ -690,6 +738,10 @@
       "proc_macro": false,
       "build_script": "build.rs",
       "binaries": [],
+      "lib_target": {
+        "name": "thiserror",
+        "path": "src/lib.rs"
+      },
       "dependencies": [
         {
           "name": "thiserror_impl",
@@ -736,6 +788,10 @@
       "proc_macro": true,
       "build_script": null,
       "binaries": [],
+      "lib_target": {
+        "name": "thiserror_impl",
+        "path": "src/lib.rs"
+      },
       "dependencies": [
         {
           "name": "proc_macro2",
@@ -827,6 +883,10 @@
       "proc_macro": false,
       "build_script": null,
       "binaries": [],
+      "lib_target": {
+        "name": "tokio",
+        "path": "src/lib.rs"
+      },
       "dependencies": [
         {
           "name": "pin_project_lite",
@@ -897,6 +957,10 @@
       "proc_macro": true,
       "build_script": null,
       "binaries": [],
+      "lib_target": {
+        "name": "tokio_macros",
+        "path": "src/lib.rs"
+      },
       "dependencies": [
         {
           "name": "proc_macro2",
@@ -988,6 +1052,10 @@
       "proc_macro": false,
       "build_script": null,
       "binaries": [],
+      "lib_target": {
+        "name": "tracing",
+        "path": "src/lib.rs"
+      },
       "dependencies": [
         {
           "name": "pin_project_lite",
@@ -1082,6 +1150,10 @@
       "proc_macro": true,
       "build_script": null,
       "binaries": [],
+      "lib_target": {
+        "name": "tracing_attributes",
+        "path": "src/lib.rs"
+      },
       "dependencies": [
         {
           "name": "proc_macro2",
@@ -1183,6 +1255,10 @@
       "proc_macro": false,
       "build_script": null,
       "binaries": [],
+      "lib_target": {
+        "name": "tracing_core",
+        "path": "src/lib.rs"
+      },
       "dependencies": [
         {
           "name": "once_cell",
@@ -1222,6 +1298,10 @@
       "proc_macro": false,
       "build_script": null,
       "binaries": [],
+      "lib_target": {
+        "name": "unicode_ident",
+        "path": "src/lib.rs"
+      },
       "dependencies": [],
       "runtime_dependencies": [],
       "build_dependencies": [],
@@ -1241,6 +1321,10 @@
       "proc_macro": false,
       "build_script": "build.rs",
       "binaries": [],
+      "lib_target": {
+        "name": "zmij",
+        "path": "src/lib.rs"
+      },
       "dependencies": [],
       "runtime_dependencies": [],
       "build_dependencies": [],
