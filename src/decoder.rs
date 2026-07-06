@@ -243,6 +243,7 @@ mod tests {
     }
 
     #[test]
+    #[allow(clippy::clone_on_copy)] // intentionally exercises the Clone impl on a Copy type
     fn codec_clone_and_copy() {
         let codec = AudioCodec::Flac;
         let cloned = codec.clone();

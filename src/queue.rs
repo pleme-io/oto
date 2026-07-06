@@ -92,7 +92,10 @@ impl Queue {
         if from >= len || to >= len || from == to {
             return;
         }
-        let track = self.tracks.remove(from).expect("from index was bounds-checked");
+        let track = self
+            .tracks
+            .remove(from)
+            .expect("from index was bounds-checked");
         // After removal, if `to` > `from`, the effective index shifts.
         // VecDeque::insert handles this correctly since we removed first.
         let insert_at = if to > len - 1 { len - 1 } else { to };

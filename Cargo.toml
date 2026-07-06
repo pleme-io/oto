@@ -1,6 +1,6 @@
 [package]
 name = "oto"
-version = "0.1.1"
+version = "0.2.0"
 edition = "2024"
 rust-version = "1.89.0"
 description = "Oto (音) — audio framework: device management, codec support, playback, voice streaming"
@@ -12,16 +12,34 @@ license = "MIT"
 categories = ["multimedia::audio"]
 keywords = ["audio", "playback", "voice", "codec", "streaming"]
 
+[features]
+default = []
+# Real audio-output + decode backend over rodio + symphonia (pure-Rust,
+# no ffmpeg). Pulls in the audio stack (cpal + symphonia); pure-logic
+# consumers/tests build without it.
+backend-rodio = ["dep:rodio"]
+
 [lints.clippy]
 pedantic = { level = "warn", priority = -1 }
 missing_errors_doc = "allow"
 missing_panics_doc = "allow"
+# Type names are task-mandated (PlaybackBackend / MockBackend / RodioBackend)
+# and naturally belong in the `backend` / `rodio_backend` modules.
+module_name_repetitions = "allow"
+# Doc prose references spec sections (Quadro §II-T10) and third-party crate
+# names (rodio, symphonia, cpal) — not code identifiers to backtick.
+doc_markdown = "allow"
 
 [dependencies]
 serde = { version = "1", features = ["derive"] }
 tracing = "0.1"
 thiserror = "2"
 tokio = { version = "1", features = ["sync"] }
+rodio = { version = "0.20", optional = true, default-features = false, features = [
+    "symphonia-all",
+    "symphonia-aiff",
+    "symphonia-alac",
+] }
 
 [dev-dependencies]
 serde_json = "1.0.149"

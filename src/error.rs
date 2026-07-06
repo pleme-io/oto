@@ -64,7 +64,10 @@ mod tests {
     fn error_debug_format_includes_variant_name() {
         let err = OtoError::QueueEmpty;
         let debug = format!("{err:?}");
-        assert!(debug.contains("QueueEmpty"), "Debug should contain variant name: {debug}");
+        assert!(
+            debug.contains("QueueEmpty"),
+            "Debug should contain variant name: {debug}"
+        );
     }
 
     #[test]
@@ -73,7 +76,10 @@ mod tests {
         let err = OtoError::from(io_err);
         // Verify the Display output wraps the original message
         let display = err.to_string();
-        assert!(display.contains("access denied"), "Display should contain original message: {display}");
+        assert!(
+            display.contains("access denied"),
+            "Display should contain original message: {display}"
+        );
     }
 
     #[test]
@@ -84,11 +90,17 @@ mod tests {
         let e3 = OtoError::DecoderError("x".into());
         let e4 = OtoError::QueueEmpty;
 
-        let messages: Vec<String> = vec![e1, e2, e3, e4].into_iter().map(|e| e.to_string()).collect();
+        let messages: Vec<String> = vec![e1, e2, e3, e4]
+            .into_iter()
+            .map(|e| e.to_string())
+            .collect();
         // All messages should be unique
         for i in 0..messages.len() {
             for j in (i + 1)..messages.len() {
-                assert_ne!(messages[i], messages[j], "Error messages should be distinct");
+                assert_ne!(
+                    messages[i], messages[j],
+                    "Error messages should be distinct"
+                );
             }
         }
     }

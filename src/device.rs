@@ -13,7 +13,13 @@ pub struct AudioDevice {
 impl AudioDevice {
     /// Create a new audio device descriptor.
     #[must_use]
-    pub fn new(id: String, name: String, is_default: bool, sample_rate: u32, channels: u16) -> Self {
+    pub fn new(
+        id: String,
+        name: String,
+        is_default: bool,
+        sample_rate: u32,
+        channels: u16,
+    ) -> Self {
         Self {
             id,
             name,
@@ -126,8 +132,20 @@ mod tests {
     #[test]
     fn mock_provider_add_device() {
         let mut provider = MockDeviceProvider::new();
-        provider.add_device(AudioDevice::new("usb-1".into(), "USB DAC".into(), false, 96000, 2));
-        provider.add_device(AudioDevice::new("built-in".into(), "Built-in".into(), true, 44100, 2));
+        provider.add_device(AudioDevice::new(
+            "usb-1".into(),
+            "USB DAC".into(),
+            false,
+            96000,
+            2,
+        ));
+        provider.add_device(AudioDevice::new(
+            "built-in".into(),
+            "Built-in".into(),
+            true,
+            44100,
+            2,
+        ));
 
         let devices = provider.list_output_devices().unwrap();
         assert_eq!(devices.len(), 2);
@@ -173,7 +191,8 @@ mod tests {
     #[test]
     fn audio_device_provider_trait_object_safety() {
         // Verify AudioDeviceProvider can be used as a trait object
-        let provider: Box<dyn AudioDeviceProvider> = Box::new(MockDeviceProvider::with_default_device());
+        let provider: Box<dyn AudioDeviceProvider> =
+            Box::new(MockDeviceProvider::with_default_device());
         let devices = provider.list_output_devices().unwrap();
         assert_eq!(devices.len(), 1);
     }
