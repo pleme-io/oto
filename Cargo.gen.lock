@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "cargo_lock_sha256": "5039835ea6a79416d66165bcba3839c2c6b8eb2f1982e015715a3982e7dc1260",
+  "cargo_lock_sha256": "27fdbd9cfcbb5341b7d0983a5c241e9848c0df138f5deeb5bcaf22e599a033ee",
   "target_resolves": {
     "base": {
       "itoa-1.0.18": {
@@ -26,7 +26,7 @@
           "std"
         ]
       },
-      "oto-0.1.1": {
+      "oto-0.2.0": {
         "runtime_dependencies": [
           {
             "name": "serde",
@@ -74,7 +74,9 @@
           }
         ],
         "build_dependencies": [],
-        "features": []
+        "features": [
+          "default"
+        ]
       },
       "pin-project-lite-0.2.17": {
         "runtime_dependencies": [],
@@ -107,7 +109,7 @@
             "package_key": "proc-macro2-1.0.106",
             "kind": "normal",
             "features": [],
-            "uses_default_features": true,
+            "uses_default_features": false,
             "optional": false,
             "target": null,
             "tree": "target"
@@ -166,8 +168,10 @@
             "name": "proc_macro2",
             "package_key": "proc-macro2-1.0.106",
             "kind": "normal",
-            "features": [],
-            "uses_default_features": true,
+            "features": [
+              "proc-macro"
+            ],
+            "uses_default_features": false,
             "optional": false,
             "target": null,
             "tree": "target"
@@ -262,7 +266,7 @@
             "package_key": "proc-macro2-1.0.106",
             "kind": "normal",
             "features": [],
-            "uses_default_features": true,
+            "uses_default_features": false,
             "optional": false,
             "target": null,
             "tree": "target"
@@ -374,7 +378,7 @@
             "kind": "normal",
             "features": [],
             "uses_default_features": true,
-            "optional": false,
+            "optional": true,
             "target": null,
             "tree": "host"
           }
@@ -447,7 +451,7 @@
             "kind": "normal",
             "features": [],
             "uses_default_features": true,
-            "optional": false,
+            "optional": true,
             "target": null,
             "tree": "host"
           },
@@ -456,7 +460,7 @@
             "package_key": "tracing-core-0.1.36",
             "kind": "normal",
             "features": [],
-            "uses_default_features": true,
+            "uses_default_features": false,
             "optional": false,
             "target": null,
             "tree": "target"
@@ -497,13 +501,13 @@
             "package_key": "syn-2.0.117",
             "kind": "normal",
             "features": [
+              "clone-impls",
+              "extra-traits",
               "full",
               "parsing",
               "printing",
-              "visit-mut",
-              "clone-impls",
-              "extra-traits",
-              "proc-macro"
+              "proc-macro",
+              "visit-mut"
             ],
             "uses_default_features": false,
             "optional": false,
@@ -548,6 +552,12 @@
       "aarch64-apple-darwin": {
         "overrides": {}
       },
+      "aarch64-unknown-linux-gnu": {
+        "overrides": {}
+      },
+      "aarch64-unknown-linux-musl": {
+        "overrides": {}
+      },
       "x86_64-apple-darwin": {
         "overrides": {}
       },
@@ -555,12 +565,6 @@
         "overrides": {}
       },
       "x86_64-unknown-linux-musl": {
-        "overrides": {}
-      },
-      "aarch64-unknown-linux-gnu": {
-        "overrides": {}
-      },
-      "aarch64-unknown-linux-musl": {
         "overrides": {}
       }
     }
@@ -575,7 +579,7 @@
     "once_cell-1.21.4": {
       "edition": "2021"
     },
-    "oto-0.1.1": {
+    "oto-0.2.0": {
       "edition": "2024",
       "lib_target": {
         "name": "oto",
